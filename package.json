@@ -1,0 +1,22 @@
+{
+  "name": "turn_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongodb":"2.2.1",
+    "ejs":"*"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies":{
+    "nodemon": "^1.9.2",
+    "body-parser":"^1.15.2"
+  }
+
+}
