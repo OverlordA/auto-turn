@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" type="text/css" href="css/style_index.css">
+		
+		<title>
+			Доступные автомобили
+		</title>
+	</head>
+	<body >
+		<table border="2" align="center">
+			<tr>
+				<% for(var i=0; i<results.length; i++) {%>
+					<td>
+						<img src=<%=results[i].urlimg%>   height="165"/><br/>	
+						Марка: <%=results[i].marka%><br/>
+     					Модель: <%=results[i].model%><br/>
+     					<form action="/reg" method="POST">
+							<button name="id_car" value=<%=results[i]._id%>>
+								register
+							</button>
+						</form>
+						<form action="/next" method="POST">
+							<button name="id_car" value=<%=results[i]._id%>>
+								next
+							</button>
+						</form>
+ 					</td>
+				 <% } %>
+
+			</tr>
+			<tr><view class="turn_number">
+				<% for(var i=0; i<results.length; i++) {%>
+				<td>
+					<% for(var j=0; j<results[i].count.length; j++) {%>
+					
+					<view <%if(j == 0){%> style="color:green"<%}%> <%if(j == 1){%>style="color:yellow"<%}else{%>
+						style="color:red"<%}%>>
+					<%=results[i].count[j]%><br/>
+				</view>
+					 <% } %>
+				</td>
+				 <% } %>
+				</view>
+			</tr>
+		</table>
+					<form action="/reset" method="POST">
+						<button>
+							reset
+						</button>
+					</form>	
+
+	</body>
+
+
+</html>
