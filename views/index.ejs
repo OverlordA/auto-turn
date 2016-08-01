@@ -9,13 +9,23 @@
 		</title>
 	</head>
 	<body >
-		<table border="2" align="center">
+		<form action="/reset" method="POST">
+			<view class="resetbut">
+				<button>
+					reset
+				</button><br/>
+			</view>
+		</form>	
+		<table  align="center" >
 			<tr>
 				<% for(var i=0; i<results.length; i++) {%>
 					<td>
 						<img src=<%=results[i].urlimg%>   height="165"/><br/>	
+						<view class="specif" class="intable">
 						Марка: <%=results[i].marka%><br/>
      					Модель: <%=results[i].model%><br/>
+     					</view>
+     					<view class="intable">
      					<form action="/reg" method="POST">
 							<button name="id_car" value=<%=results[i]._id%>>
 								register
@@ -26,6 +36,7 @@
 								next
 							</button>
 						</form>
+					</view>
  					</td>
 				 <% } %>
 
@@ -45,11 +56,7 @@
 				</view>
 			</tr>
 		</table>
-					<form action="/reset" method="POST">
-						<button>
-							reset
-						</button>
-					</form>	
+					
 
 	</body>
 
