@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 
 var MongoDriver = require('mongodb');
 var MongoClient = MongoDriver.MongoClient, assert = require('assert');
-var url = 'mongodb://localhost:27017/auto_turn';
+var url = 'mongodb://192.168.2.108:27017/auto_turn';
 var ObjectId = MongoDriver.ObjectId;
 var count1 = 0; 
 
@@ -33,24 +33,20 @@ MongoClient.connect(url, function(err, db) {
 		
 	});
 
-app.post('/reg', function(req, res) {
+	app.post('/reg', function(req, res) {
 
-
-
-count1++;
-console.log(count1);
-console.log(req.body.id_car);
+		count1++;
+		console.log(count1);
+		console.log(req.body.id_car);
 	
 
  // добавлення дока
  
-  var collection = db.collection('auto');
+ 		var collection = db.collection('auto');
   // Update document where a is 2, set b equal to 1 
  // collection.updateOne({_id:ObjectId(req.body.id_car) }, { $set: { count : [count1] } });  
 
-collection.updateOne({_id:ObjectId(req.body.id_car) }
-    , { $push: { count : count1} 
-  }); 
+		collection.updateOne({_id:ObjectId(req.body.id_car) }, { $push: { count : count1} }); 
   
 
 		collection.find().toArray(function(err, results) {
@@ -61,41 +57,41 @@ collection.updateOne({_id:ObjectId(req.body.id_car) }
 		
 	});
 
-app.post("/reset", function(req, res){
 
-  var collection = db.collection('auto');
 
-collection.updateMany({},{$set:{count:[0]}});
-collection.updateMany({} , { $pop: { count: -1 } }); 
-count1 = 0;
+	app.post("/reset", function(req, res){
 
-collection.find().toArray(function(err, results) {
+ 		var collection = db.collection('auto');
+
+		collection.updateMany({},{$set:{count:[0]}});
+		collection.updateMany({} , { $pop: { count: -1 } }); 
+		count1 = 0;
+
+		collection.find().toArray(function(err, results) {
    		  
 			res.render('index', {results:results});
 	
     	});
 
-});
+	});
 
 
 
-app.post("/next", function(req, res){
+	app.post("/next", function(req, res){
 
-	var collection = db.collection('auto');
+		var collection = db.collection('auto');
 
-collection.update({_id:ObjectId(req.body.id_car) }
-    , { $pop: { count: -1 }  
-  }); 
+		collection.update({_id:ObjectId(req.body.id_car) }
+    		, { $pop: { count: -1 }  
+  		}); 
 
-collection.find().toArray(function(err, results) {
+		collection.find().toArray(function(err, results) {
    		  
 			res.render('index', {results:results});
 	
     	});
 
-
-
-});
+	});
 
 //disconect db	
 });
