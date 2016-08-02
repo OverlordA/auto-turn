@@ -9,14 +9,18 @@
 		</title>
 	</head>
 	<body >
-		<form action="/reset" method="POST">
+		 
+	 <form action="/reset" method="POST"> 
 			<view class="resetbut">
-				<button>
+				<button name="reset"onclick='if(confirm("You want reset turn?")) { value="true" } else{value="false"}'>
+					
 					reset
+						
 				</button><br/>
 			</view>
-		</form>	
-		<table  align="center" >
+		</form>
+		
+		<table align="center">
 			<tr>
 				<% for(var i=0; i<results.length; i++) {%>
 					<td>
@@ -42,19 +46,22 @@
 
 			</tr>
 			<tr>
-				<view class="turn_number">
 					<% for(var i=0; i<results.length; i++) {%>
-						<td>
+				
+							<td>
 							<% for(var j=0; j<results[i].count.length; j++) {%>
-					
-								<view <%if(j == 0){%> style="color:green"<%}%> <%if(j == 1){%>style="color:yellow"<%}else{%>
-								style="color:red"<%}%>>
+						
+								
+								<div <%if(j == 0){%> style="color:green"<%}%> <%if(j == 1){%>style="color:yellow"<%}else{%>
+								style="color:red"<%}%> class="numbers">
 								<%=results[i].count[j]%><br/>
-								</view>
+								</div>
+								
+
 					 		<% } %>
-						</td>
+							</td>
 				 	<% } %>
-				</view>
+				
 			</tr>
 		</table>
 					

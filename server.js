@@ -58,10 +58,12 @@ MongoClient.connect(url, function(err, db) {
 	});
 
 
-
 	app.post("/reset", function(req, res){
+		var collection = db.collection('auto');
 
- 		var collection = db.collection('auto');
+if(req.body.reset=='true'){
+
+ 		
 
 		collection.updateMany({},{$set:{count:[0]}});
 		collection.updateMany({} , { $pop: { count: -1 } }); 
@@ -72,6 +74,13 @@ MongoClient.connect(url, function(err, db) {
 			res.render('index', {results:results});
 	
     	});
+	}else{
+	collection.find().toArray(function(err, results) {
+   		  
+			res.render('index', {results:results});
+	
+    	});
+	}
 
 	});
 
@@ -95,6 +104,8 @@ MongoClient.connect(url, function(err, db) {
 
 //disconect db	
 });
+
+
 
 app.listen(3000, function() {
 
