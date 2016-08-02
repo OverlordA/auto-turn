@@ -13,6 +13,7 @@ var MongoDriver = require('mongodb');
 var MongoClient = MongoDriver.MongoClient, assert = require('assert');
 var url = 'mongodb://192.168.2.108:27017/auto_turn';
 var ObjectId = MongoDriver.ObjectId;
+var formidable = require("formidable");
 var count1 = 0; 
 
 MongoClient.connect(url, function(err, db) { 
@@ -101,6 +102,15 @@ if(req.body.reset=='true'){
     	});
 
 	});
+
+
+app.post('/renderaddcar', function(req, res) {
+
+res.render('addcar', {});
+
+
+});
+
 
 //disconect db	
 });
