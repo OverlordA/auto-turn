@@ -11,19 +11,41 @@
 
 
 	<body>
-		<view>
-			<form action="/addcar" method="POST">
-				Car model: <input></br>
-				Car brand: <input></br><button>Add</button>
+		<div class="content-addcar">
+		<table  style="width:100%">
+			<tr>
+				<td>
+				<img src=<%=filenamedb%> width="200">
+			<form action="/upload" method="POST" enctype="multipart/form-data">
+			
+				<input type="file" name="upload" multiple="multiple">
+				</td>
+				<td width="100px" style="vertical-align:bottom;">
+  				<button type="submit" value="Upload">upload</button>  
+  			</td>
+  			</tr>
+			</table>
 
-			</form>	
-				
-			<form action="/upload" enctype="multipart/form-data" method="post">
-    			<input type="file" name="upload" multiple="multiple"><br>
-  				<input type="submit" value="Upload">
+			<table  style="width:100%;">
+			<tr>
+				<td>
+			</form>
+			<form action="/addcar" method="POST">
+				Car model: <input placeholder="model car" name = "model"><br/>
+				Car brand: <input  placeholder="brand car" name = "brand">
+			</td>
+			<td width="100px">
+				<button type="submit">Add</button>
   			</form>
 
-				
-		</view>	
+			</td>
+  			</tr>
+			</table>
+				<div clas="bac-to">
+			<form action="/" method="GET">
+  				<button>back to car</button>
+  				</form>
+		</div>
+		</div>
 	</body>
 </html>
