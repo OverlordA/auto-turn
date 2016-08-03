@@ -12,13 +12,18 @@
 
 	<body>
 		<view>
-			<form action="/addcars" method="POST">
+			<form action="/addcar" method="POST">
 				Car model: <input></br>
-				Car brand: <input></br>
-				
+				Car brand: <input></br><button>Add</button>
 
-				<button>Add</button>
 			</form>	
+				
+			<form action="/upload" enctype="multipart/form-data" method="post">
+    			<input type="file" name="upload" multiple="multiple"><br>
+  				<input type="submit" value="Upload">
+  			</form>
+
+				
 		</view>	
 	</body>
 </html>

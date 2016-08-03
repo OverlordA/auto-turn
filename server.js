@@ -103,10 +103,26 @@ if(req.body.reset=='true'){
 
 	});
 
-
+//сторінка загрузки img
 app.post('/renderaddcar', function(req, res) {
 
 res.render('addcar', {});
+
+
+});
+
+app.post('/upload', function(req, res){
+
+var form = new formidable.IncomingForm();
+form.parse(req);
+
+form.on('fileBegin', function (name, file){
+        file.path = __dirname + '/public/images/car/' + file.name;
+    });
+
+ form.on('file', function (name, file){
+        console.log('Uploaded ' + file.name);
+    });
 
 
 });
