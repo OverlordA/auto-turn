@@ -174,6 +174,11 @@ res.render('addcar', {filenamedb:filenamedb});
 
 
 
+app.get('/print',function(req, res){
+
+res.render('print',{});
+
+});
 
 //disconect db	
 });
