@@ -9,6 +9,9 @@
 		</title>
 	</head>
 	<body >
+		
+		
+		
 		 	<view class="resetbut">
 	 <form action="/reset" method="POST"> 
 		
@@ -31,8 +34,10 @@
      						Модель: <%=results[i].model%><br/>
      					</view>
      					<view class="intable">
-     						<form action="/reg" method="POST">
+     						<form action="/reg" method="POST" id='regist'>
+     								<input type="text" placeholder="first name" name="name"></br>
 								<button name="id_car" value=<%=results[i]._id%>>
+									
 									register
 								</button>
 							</form>
@@ -55,7 +60,7 @@
 								
 								<view <%if(j == 0){%> style="color:green"<%}%> <%if(j == 1){%>style="color:yellow"<%}else{%>
 								style="color:red"<%}%> class="numbers">
-								<%=results[i].count[j]%><br/>
+								<%=results[i].count[j]%> <%=results[i].client[j]%><br/>
 								</view>
 								
 

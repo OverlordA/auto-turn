@@ -8,15 +8,25 @@
 
 
 button {
-width:60px;
-height:20px;
-
+	margin:3px;
+width:80px;
+height:30px;
+border-style:solid;
+border-color:#647377;
  border-radius: 8px;
  background-color:#647377;
  font-weight:bold;
- color:#1E2E37;
- border:1px;
+ color:#CCD4CC;
+ border-width:1px;
  position:center;
+}
+
+button:hover{
+color:#1E2E37;
+border-width:1px;
+background-color:#B1BAC6;
+border-color:#647377;
+
 }
 
 .specif{
@@ -41,4 +51,5 @@ table td{
 	padding:5px;
 	vertical-align:top;
 }
+
 

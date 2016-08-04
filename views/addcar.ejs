@@ -15,7 +15,7 @@
 		<table  style="width:100%">
 			<tr>
 				<td>
-				<img src=<%=filenamedb%> width="200">
+				<img src=<%=filenamedb%> width="200" alt="select image">
 			<form action="/upload" method="POST" enctype="multipart/form-data">
 			
 				<input type="file" name="upload" multiple="multiple">
@@ -25,7 +25,7 @@
   			</td>
   			</tr>
 			</table>
-
+			<hr/>
 			<table  style="width:100%;">
 			<tr>
 				<td>
@@ -41,6 +41,7 @@
 			</td>
   			</tr>
 			</table>
+			<hr/>
 				<div clas="bac-to">
 			<form action="/" method="GET">
   				<button>back to car</button>

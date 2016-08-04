@@ -11,7 +11,8 @@
     "ejs": "^2.5.1",
     "express": "^4.14.0",
     "formidable": "^1.0.17",
-    "mongodb": "^2.2.1"
+    "mongodb": "^2.2.1",
+  
   },
   "author": "",
   "license": "ISC",

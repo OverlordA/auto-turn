@@ -15,8 +15,20 @@ margin:5px;
 border-radius:8px;
 background-color:#647377;
 font-weight:bold;
-border:1px;
+border-style:solid;
+border-color:#647377;
+ border-radius: 8px;
+ background-color:#647377;
+ font-weight:bold;
+ color:#CCD4CC;
+ border-width:1px;
 
+}
+button:hover{
+color:#1E2E37;
+border-width:1px;
+background-color:#B1BAC6;
+border-color:#647377;
 
 }
 
