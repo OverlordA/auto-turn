@@ -60,6 +60,7 @@ MongoClient.connect(url, function(err, db) {
 		collection.find().toArray(function(err, results) {
    		  
 			res.render('index', {results:results});
+
 	
     	});
 		
@@ -110,10 +111,16 @@ if(req.body.reset=='true'){
 		collection.find().toArray(function(err, results) {
    		  
 			res.render('index', {results:results});
+
 	
     	});
 
 	});
+
+	app.post('/buttomexe', function(req, res){
+
+		res.render('print', {});
+	})
 
 //сторінка загрузки img
 app.post('/renderaddcar', function(req, res) {
@@ -176,10 +183,21 @@ res.render('addcar', {filenamedb:filenamedb});
 
 app.get('/print',function(req, res){
 
-res.render('print',{});
+		var collection = db.collection('auto');
 
+		collection.find().toArray(function(err, results) {
+   		  
+			res.render('print',{results:results});
+		
+	
+    	});
+		
 });
 
+app.post('/startexe', function(req, res){
+	var startexe = require('child_process').exec('start cmd.exe');
+
+});
 //disconect db	
 });
 

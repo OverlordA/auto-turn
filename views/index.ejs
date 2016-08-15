@@ -46,6 +46,8 @@
 									next
 								</button>
 							</form>
+								
+ 
 						</view>
  					</td>
 				<% } %>
@@ -60,9 +62,12 @@
 								
 								<view <%if(j == 0){%> style="color:green"<%}%> <%if(j == 1){%>style="color:yellow"<%}else{%>
 								style="color:red"<%}%> class="numbers">
-								<%=results[i].count[j]%> <%=results[i].client[j]%><br/>
-								</view>
+      
+        							№<%=results[i].count[j]%> <%=results[i].client[j]%><br/>
 								
+								</view>
+
+					
 
 					 		<% } %>
 							</td>
@@ -70,9 +75,40 @@
 				
 			</tr>
 		</table>
-					
 
-	</body>
+  <div id="print-content">
+  	Надрукувати элемент
+		</div>
+<script language="javascript">
+function CallPrint(strid) {
+  var prtContent = document.getElementById(strid);
+  var prtCSS = '<link rel="stylesheet" href="/templates/css/template.css" type="text/css" />';
+  var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+  WinPrint.document.write('<div id="print" class="contentpane">');
+  WinPrint.document.write(prtCSS);
+  WinPrint.document.write(prtContent.innerHTML);
+  WinPrint.document.write('</div>');
+  WinPrint.document.close();
+  WinPrint.focus();
+  WinPrint.print();
+  WinPrint.close();
+  prtContent.innerHTML=strOldOne;
+}
+</script>
+
+								<button onClick="javascript:CallPrint('print-content');">
+									print
+								</button>	
+
+
+
+								<form action="/startexe" method="POST">
+									<button>
+										start cmd
+									</button>
+							</form>
+
+	
 
 
 </html>
