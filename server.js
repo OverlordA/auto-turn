@@ -11,12 +11,14 @@ app.set('view engine', 'ejs');
 
 var MongoDriver = require('mongodb');
 var MongoClient = MongoDriver.MongoClient, assert = require('assert');
-var url = 'mongodb://192.168.2.108:27017/auto_turn';
+var url = 'mongodb://localhost:27017/auto_turn';
 var ObjectId = MongoDriver.ObjectId;
 var formidable = require("formidable");
 
 var count1 = 0; 
 var filenamedb =0; 
+var printcount = 0;
+var printname = 0;
 
 
 MongoClient.connect(url, function(err, db) { 
@@ -31,7 +33,7 @@ MongoClient.connect(url, function(err, db) {
 		console.log("Connected correctly to server");
 		collection.find().toArray(function(err, results) {
    		   
-			res.render('index', {results:results});
+			res.render('index', {results:results,printname:printname,printcount:printcount});
 	
     	});
 		
@@ -46,6 +48,8 @@ MongoClient.connect(url, function(err, db) {
 		count1++;
 		console.log(count1);
 		console.log(req.body.id_car);
+		printcount = count1;
+		printname = req.body.name; 
 	
 
  // добавлення дока
@@ -59,7 +63,7 @@ MongoClient.connect(url, function(err, db) {
 
 		collection.find().toArray(function(err, results) {
    		  
-			res.render('index', {results:results});
+			res.render('index', {results:results,printname:printname,printcount:printcount});
 
 	
     	});
@@ -68,6 +72,9 @@ MongoClient.connect(url, function(err, db) {
 
 
 	app.post("/reset", function(req, res){
+printcount = 0;
+		printname = 0; 
+
 		var collection = db.collection('auto');
 
 if(req.body.reset=='true'){
@@ -82,13 +89,13 @@ if(req.body.reset=='true'){
 
 		collection.find().toArray(function(err, results) {
    		  
-			res.render('index', {results:results});
+			res.render('index', {results:results,printname:printname,printcount:printcount});
 	
     	});
 	}else{
 	collection.find().toArray(function(err, results) {
    		  
-			res.render('index', {results:results});
+			res.render('index', {results:results,printname:printname,printcount:printcount});
 	
     	});
 	}

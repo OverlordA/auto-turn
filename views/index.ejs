@@ -60,12 +60,12 @@
 							<% for(var j=0; j<results[i].count.length; j++) {%>
 						
 								
-								<view <%if(j == 0){%> style="color:green"<%}%> <%if(j == 1){%>style="color:yellow"<%}else{%>
-								style="color:red"<%}%> class="numbers">
+								<div <%if(j == 0){%> style="color:green"<%}%> <%if(j == 1){%>style="color:yellow"<%}else{%>
+								style="color:red"<%}%> class="numbers" >
       
         							№<%=results[i].count[j]%> <%=results[i].client[j]%><br/>
 								
-								</view>
+								</div>
 
 					
 
@@ -77,7 +77,8 @@
 		</table>
 
   <div id="print-content">
-  	Надрукувати элемент
+  	
+  	<%=printcount%> <%=printname%>
 		</div>
 <script language="javascript">
 function CallPrint(strid) {
