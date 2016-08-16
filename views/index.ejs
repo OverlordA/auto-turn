@@ -36,7 +36,7 @@
      					<view class="intable">
      						<form action="/reg" method="POST" id='regist'>
      								<input type="text" placeholder="first name" name="name" autocomplete="off" autofocus></br>
-								<button name="id_car" value=<%=results[i]._id%>>
+								<button name="id_car" value=<%=results[i]._id%> onClick="javascript:CallPrint('print-content');">
 									
 									register
 								</button>
@@ -78,7 +78,7 @@
 
   <div id="print-content">
   	
-  	<%=printcount%> <%=printname%>
+  	<%=printcount%><br/> <%=printname%>
 		</div>
 <script language="javascript">
 function CallPrint(strid) {
@@ -97,17 +97,11 @@ function CallPrint(strid) {
 }
 </script>
 
-								<button onClick="javascript:CallPrint('print-content');">
-									print
-								</button>	
+								
 
 
 
-								<form action="/startexe" method="POST">
-									<button>
-										start cmd
-									</button>
-							</form>
+								
 
 	
 

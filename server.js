@@ -201,10 +201,13 @@ app.get('/print',function(req, res){
 		
 });
 
-app.post('/startexe', function(req, res){
-	var startexe = require('child_process').exec('start cmd.exe');
+// starting exe file 
+//app.post('/startexe', function(req, res){
+//	var startexe = require('child_process').exec('start cmd.exe');
 
-});
+//});
+
+
 //disconect db	
 });
 

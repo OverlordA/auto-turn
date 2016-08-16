@@ -28,6 +28,11 @@ background-color:#B1BAC6;
 border-color:#647377;
 
 }
+#print-content{
+text-align:center;
+visibility: hidden;
+
+}
 
 .specif{
 
