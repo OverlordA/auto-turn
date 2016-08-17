@@ -11,9 +11,11 @@ app.set('view engine', 'ejs');
 
 var MongoDriver = require('mongodb');
 var MongoClient = MongoDriver.MongoClient, assert = require('assert');
-var url = 'mongodb://localhost:27017/auto_turn';
+var url = 'mongodb://192.168.2.108:27017/auto_turn';
 var ObjectId = MongoDriver.ObjectId;
 var formidable = require("formidable");
+var fs = require("fs"),
+    sys = require("sys");
 
 var count1 = 0; 
 var filenamedb =0; 
@@ -48,8 +50,33 @@ MongoClient.connect(url, function(err, db) {
 		count1++;
 		console.log(count1);
 		console.log(req.body.id_car);
-		printcount = count1;
+		printcount = '№'+count1;
 		printname = req.body.name; 
+		var print_info = count1 +"\r\n" + req.body.name;
+	
+
+//занести дані в файл і потім його розпічатати
+		fs.open("views/print.txt", "w", 0644, function(err, file_handle) {
+if (!err) {
+    // Операции с открытым файлом
+    fs.write(file_handle, print_info , null, 'ascii', function(err, written) {
+        if (!err) {
+            // Всё прошло хорошо 
+            console.log('write file true');
+             fs.close(file_handle);
+             var startexe = require('child_process').exec('start cmd.exe');
+
+        } else {
+            // Произошла ошибка при записи
+            console.log('write file failed');
+
+        }
+    });
+} else {
+    // Обработка ошибок
+}
+});
+
 	
 
  // добавлення дока
@@ -63,29 +90,31 @@ MongoClient.connect(url, function(err, db) {
 
 		collection.find().toArray(function(err, results) {
    		  
-			res.render('index', {results:results,printname:printname,printcount:printcount});
+			res.render('index', {results:results,printname:printname,printcount:printcount,});
 
 	
     	});
+
 		
 	});
 
 
 	app.post("/reset", function(req, res){
-printcount = 0;
+		var collection = db.collection('auto');
+		printcount = 0;
 		printname = 0; 
 
-		var collection = db.collection('auto');
+		
 
 if(req.body.reset=='true'){
 
  		
-
+		count1 = 0;
 		collection.updateMany({},{$set:{count:[0]}});
 		collection.updateMany({} , { $pop: { count: -1 } });
 		collection.updateMany({},{$set:{client:[0]}});
 		collection.updateMany({} , { $pop: { client: -1 } });  
-		count1 = 0;
+	
 
 		collection.find().toArray(function(err, results) {
    		  
@@ -117,7 +146,7 @@ if(req.body.reset=='true'){
 
 		collection.find().toArray(function(err, results) {
    		  
-			res.render('index', {results:results});
+			res.render('index', {results:results,printname:printname,printcount:printcount});
 
 	
     	});

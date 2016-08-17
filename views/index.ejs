@@ -36,7 +36,7 @@
      					<view class="intable">
      						<form action="/reg" method="POST" id='regist'>
      								<input type="text" placeholder="first name" name="name" autocomplete="off" autofocus></br>
-								<button name="id_car" value=<%=results[i]._id%> onClick="javascript:CallPrint('print-content');">
+								<button name="id_car" value=<%=results[i]._id%> >
 									
 									register
 								</button>
@@ -80,8 +80,10 @@
   	
   	<%=printcount%><br/> <%=printname%>
 		</div>
+		
 <script language="javascript">
-function CallPrint(strid) {
+
+ function CallPrint(strid) {
   var prtContent = document.getElementById(strid);
   var prtCSS = '<link rel="stylesheet" href="/css/style_print.css" type="text/css" />';
   var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
@@ -95,6 +97,7 @@ function CallPrint(strid) {
   WinPrint.close();
   prtContent.innerHTML=strOldOne;
 }
+
 </script>
 
 								
