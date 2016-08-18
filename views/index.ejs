@@ -39,6 +39,8 @@
 								<button name="id_car" value=<%=results[i]._id%> >
 									
 									register
+									<input type="hidden" name="model_car" value=<%=results[i].model%>>
+									<input type="hidden" name="avto_mark" value=<%=results[i].marka%>>
 								</button>
 							</form>
 							<form action="/next" method="POST">

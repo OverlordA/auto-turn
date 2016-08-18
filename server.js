@@ -33,7 +33,7 @@ MongoClient.connect(url, function(err, db) {
 		var collection = db.collection('auto');
 		assert.equal(null, err);
 		console.log("Connected correctly to server");
-		collection.find().toArray(function(err, results) {
+		collection.find().sort( { _id : 1 } ).toArray(function(err, results) {
    		   
 			res.render('index', {results:results,printname:printname,printcount:printcount});
 	
@@ -52,11 +52,11 @@ MongoClient.connect(url, function(err, db) {
 		console.log(req.body.id_car);
 		printcount = '№'+count1;
 		printname = req.body.name; 
-		var print_info = count1 +"\r\n" + req.body.name;
+		var print_info = count1 +"\r\n" + req.body.avto_mark+ " " + req.body.model_car;
 	
 
 //занести дані в файл і потім його розпічатати
-		fs.open("views/print.txt", "w", 0644, function(err, file_handle) {
+		fs.open("number.txt", "w", 0644, function(err, file_handle) {
 if (!err) {
     // Операции с открытым файлом
     fs.write(file_handle, print_info , null, 'ascii', function(err, written) {
@@ -64,7 +64,7 @@ if (!err) {
             // Всё прошло хорошо 
             console.log('write file true');
              fs.close(file_handle);
-             var startexe = require('child_process').exec('start cmd.exe');
+             var startexe = require('child_process').exec('start print.bat');
 
         } else {
             // Произошла ошибка при записи
@@ -88,7 +88,7 @@ if (!err) {
 		collection.updateOne({_id:ObjectId(req.body.id_car) }, { $push: { count : count1} }); 
   	collection.updateOne({_id:ObjectId(req.body.id_car) }, { $push: { client : req.body.name} });
 
-		collection.find().toArray(function(err, results) {
+		collection.find().sort( { _id : 1 } ).toArray(function(err, results) {
    		  
 			res.render('index', {results:results,printname:printname,printcount:printcount,});
 
@@ -116,13 +116,13 @@ if(req.body.reset=='true'){
 		collection.updateMany({} , { $pop: { client: -1 } });  
 	
 
-		collection.find().toArray(function(err, results) {
+		collection.find().sort( { _id : 1 } ).toArray(function(err, results) {
    		  
 			res.render('index', {results:results,printname:printname,printcount:printcount});
 	
     	});
 	}else{
-	collection.find().toArray(function(err, results) {
+	collection.find().sort( { _id : 1 } ).toArray(function(err, results) {
    		  
 			res.render('index', {results:results,printname:printname,printcount:printcount});
 	
@@ -144,7 +144,7 @@ if(req.body.reset=='true'){
     		, { $pop: { client: -1 }  
   		}); 
 
-		collection.find().toArray(function(err, results) {
+		collection.find().sort( { _id : 1 } ).toArray(function(err, results) {
    		  
 			res.render('index', {results:results,printname:printname,printcount:printcount});
 
@@ -221,7 +221,7 @@ app.get('/print',function(req, res){
 
 		var collection = db.collection('auto');
 
-		collection.find().toArray(function(err, results) {
+		collection.find().sort( { _id : 1 } ).toArray(function(err, results) {
    		  
 			res.render('print',{results:results});
 		
