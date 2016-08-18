@@ -30,7 +30,7 @@
 					<td>
 						<img src=<%=results[i].urlimg%>   height="165"/><br/>	
 						<view class="specif" class="intable">
-							Марка: <%=results[i].marka%><br/>
+					<!--		Марка: <%=results[i].marka%><br/>  !-->
      						Модель: <%=results[i].model%><br/>
      					</view>
      					<view class="intable">
@@ -39,8 +39,7 @@
 								<button name="id_car" value=<%=results[i]._id%> >
 									
 									register
-									<input type="hidden" name="model_car" value=<%=results[i].model%>>
-									<input type="hidden" name="avto_mark" value=<%=results[i].marka%>>
+									<input type="hidden" name="model_car" value='<%=results[i].model%>'> 
 								</button>
 							</form>
 							<form action="/next" method="POST">

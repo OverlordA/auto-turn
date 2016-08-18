@@ -50,9 +50,10 @@ MongoClient.connect(url, function(err, db) {
 		count1++;
 		console.log(count1);
 		console.log(req.body.id_car);
+		console.log(req.body.model_car);
 		printcount = '№'+count1;
 		printname = req.body.name; 
-		var print_info = count1 +"\r\n" + req.body.avto_mark+ " " + req.body.model_car;
+		var print_info = "   "+count1 +"\r\n" + req.body.model_car;
 	
 
 //занести дані в файл і потім його розпічатати
