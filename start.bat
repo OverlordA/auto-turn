@@ -1,4 +1,6 @@
 @echo off
 echo.
 
-node.exe server.js
+start mongoDB\MongoDBPortable.exe
+
+start /min node.exe server.js
