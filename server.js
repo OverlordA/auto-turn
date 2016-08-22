@@ -19,8 +19,10 @@ var fs = require("fs"),
 
 var count1 = 0; 
 var filenamedb =0; 
-var printcount = 0;
+var printcount = 1;
 var printname = 0;
+
+
 
 
 MongoClient.connect(url, function(err, db) { 
@@ -36,7 +38,7 @@ MongoClient.connect(url, function(err, db) {
 		collection.find().sort( { _id : 1 } ).toArray(function(err, results) {
    		   
 			res.render('index', {results:results,printname:printname,printcount:printcount});
-	
+
     	});
 		
 	});
@@ -51,9 +53,15 @@ MongoClient.connect(url, function(err, db) {
 		console.log(count1);
 		console.log(req.body.id_car);
 		console.log(req.body.model_car);
-		printcount = '№'+count1;
-		printname = req.body.name; 
-		var print_info = "   "+count1 +"\r\n" + req.body.model_car;
+		printcount = count1;
+		printcount++;
+		scriptjs =  "javascript:CallPrint('print-content');";
+
+
+
+		printname = req.body.model_car; 
+		
+		var print_info = "   "+count1 +"\r\n" + req.body.model_car+"\r\n\r\n"+"--------";
 	
 
 //занести дані в файл і потім його розпічатати
@@ -65,7 +73,7 @@ if (!err) {
             // Всё прошло хорошо 
             console.log('write file true');
              fs.close(file_handle);
-             var startexe = require('child_process').exec('start print.bat');
+             var startexe = require('child_process').exec('start cmd.exe /k help');
 
         } else {
             // Произошла ошибка при записи
@@ -81,6 +89,9 @@ if (!err) {
 	
 
  // добавлення дока
+
+
+
  
  		var collection = db.collection('auto');
   // Update document where a is 2, set b equal to 1 
@@ -88,11 +99,11 @@ if (!err) {
 
 		collection.updateOne({_id:ObjectId(req.body.id_car) }, { $push: { count : count1} }); 
   	collection.updateOne({_id:ObjectId(req.body.id_car) }, { $push: { client : req.body.name} });
-
+	
 		collection.find().sort( { _id : 1 } ).toArray(function(err, results) {
-   		  
-			res.render('index', {results:results,printname:printname,printcount:printcount,});
 
+			res.render('index', {results:results,printname:printname,printcount:printcount});
+			
 	
     	});
 
@@ -102,7 +113,7 @@ if (!err) {
 
 	app.post("/reset", function(req, res){
 		var collection = db.collection('auto');
-		printcount = 0;
+		printcount = 1;
 		printname = 0; 
 
 		
@@ -233,7 +244,7 @@ app.get('/print',function(req, res){
 
 // starting exe file 
 //app.post('/startexe', function(req, res){
-//	var startexe = require('child_process').exec('start cmd.exe');
+//	var startexe = require('child_process').exec('start cmd.exe ');
 
 //});
 

@@ -36,14 +36,14 @@
      					<view class="intable">
      						<form action="/reg" method="POST" id='regist'>
      								<input type="text" placeholder="first name" name="name" autocomplete="off" autofocus></br>
-								<button name="id_car" value=<%=results[i]._id%> >
+								<button name="id_car" value=<%=results[i]._id%>>
 									
 									register
 									<input type="hidden" name="model_car" value='<%=results[i].model%>'> 
 								</button>
 							</form>
 							<form action="/next" method="POST">
-								<button name="id_car" value=<%=results[i]._id%>>
+								<button name="id_car" value=<%=results[i]._id%> >
 									next
 								</button>
 							</form>
@@ -79,11 +79,17 @@
 
   <div id="print-content">
   	
-  	<%=printcount%><br/> <%=printname%>
+  	<h1><%=printcount%></h1><%=printname%>
 		</div>
-		
+	
+	
+	
+	
+<!--	
+
 <script language="javascript">
 
+ 
  function CallPrint(strid) {
   var prtContent = document.getElementById(strid);
   var prtCSS = '<link rel="stylesheet" href="/css/style_print.css" type="text/css" />';
@@ -97,11 +103,13 @@
   WinPrint.print();
   WinPrint.close();
   prtContent.innerHTML=strOldOne;
+
 }
+
 
 </script>
 
-								
+	!-->							
 
 
 
