@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<link rel="stylesheet" type="text/css" href="css/verify_style.css">
+		<meta charset="UTF-8"/>
+		<title>
+			Перевірка клієнта
+		</title>
+	</head>
+	<body>
+		
+		<div di="qr" class="verify">
+			<button type="submit">Зчитати QR</button>
+		</div>
+		<div id="coddb" class="verify">
+			<form action="/codverif" method="post">
+				Код:	<input type="text" placeholder="cod" name = "codk"><br/>
+				<button type="submit">Ввести код</button>
+			</form>
+		</div>
+		<div id="namedb" class="verify">
+			<form action="/nameverif" method="post"> 
+				Прізвище:	<input type="text" placeholder="surname" name = "surname"><br/>
+				<button type="submit" >По прізвищу</button>
+			</form>
+		</div>
+		<div id="regnew" class="verify">
+			<form action="/adduser" method="post">
+				Імя:	<input type="text" placeholder="name" name = "name"><br/>
+				Прізвище:	<input type="text" placeholder="surname" name = "surname"><br/>
+				Мобільний телефон:	<input type="text" placeholder="phone number" name = "phone"><br/>
+				Email:	<input type="text" placeholder="email" name = "email"><br/>
+				Cтатус:	<input type="text" name = "status"><br/>
+				Місто:	<input type="text" name = "sity"><br/>
+				Бажане авто:	<input type="data" placeholder="model auto" name = "auto"><br/>
+				время начала:	<input type="text" placeholder="time start" name = "timestart"><br/>
+				время конца: <input type="text" placeholder="time end" name = "timeend"><br/>
+				Код клиента: <input type="text" placeholder="cod client" name = "codclient"><br/>
+				Присутність: <input type="text" name="flag"><br/>
+				<hr/>
+				<button type="submit">Зареєструвати нового</button>
+			</form>
+		</div>
+
+	<div id="resultat">
+		<%=nameuser%><br/>
+		<%=phoneuser%>
+
+
+	</div>
+	
+	</body>
+</html>

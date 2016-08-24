@@ -1,6 +1,4 @@
 @echo off
 echo.
 
-start mongoDB\MongoDBPortable.exe
-
-start /min node.exe server.js
+jre\bin\java.exe -jar DataPrinter.jar "25" "Mazda CX-6"

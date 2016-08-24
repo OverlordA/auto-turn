@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 
 var MongoDriver = require('mongodb');
 var MongoClient = MongoDriver.MongoClient, assert = require('assert');
-var url = 'mongodb://192.168.2.108:27017/auto_turn';
+var url = 'mongodb://localhost:27017/auto_turn';
 var ObjectId = MongoDriver.ObjectId;
 var formidable = require("formidable");
 var fs = require("fs"),
@@ -73,7 +73,7 @@ if (!err) {
             // Всё прошло хорошо 
             console.log('write file true');
              fs.close(file_handle);
-             var startexe = require('child_process').exec('start cmd.exe /k help');
+             var startexe = require('child_process').exec('start jre\\bin\\java.exe -jar DataPrinter.jar "'+ count1 +'" "' + req.body.model_car + '"');
 
         } else {
             // Произошла ошибка при записи
@@ -247,7 +247,80 @@ app.get('/print',function(req, res){
 //	var startexe = require('child_process').exec('start cmd.exe ');
 
 //});
+//при натисненні кнопки import перейти на таку сторінку 
+app.post('/importrender', function(req, res) {
 
+			res.render('verifi', {});
+	
+	});
+//при натисненні кнопки verify перейти на таку сторінку 
+app.post('/verifirender', function(req, res) {
+	var nameuser = '';
+	var phoneuser ='';
+				res.render('verifi', {nameuser:nameuser, phoneuser:phoneuser});
+	
+    
+	});
+
+// шукати клієнта по коду з бази 8 цифр
+app.post('/codverif', function(req, res) {
+	var collection = db.collection('users');
+
+  //console.log(req.body.codk);
+
+  collection.find({id_client:req.body.codk}).toArray(function(err, results) {
+   		 // console.log(results[0].name);
+   		//  console.log(results[0].phone);
+   		var phoneuser = results[0].phone; 
+   		var nameuser = results[0].name; 
+   		
+			res.render('verifi', {phoneuser:phoneuser, nameuser:nameuser});
+	
+    	});
+			
+		
+	});
+
+// шукати клієнта з бази по прізвищу 
+app.post('/nameverif', function(req, res) {
+
+	var collection = db.collection('users');
+
+  //console.log(req.body.surname);
+
+  collection.find({surname:req.body.surname}).toArray(function(err, results) {
+   		 // console.log(results[0].name);
+   		 // console.log(results[0].phone);
+	var phoneuser = results[0].phone; 
+   		var nameuser = results[0].name; 
+			res.render('verifi', {phoneuser:phoneuser, nameuser:nameuser});
+	
+    	});
+			
+		
+	});
+//додавання користувача в базу 
+app.post('/adduser', function(req, res) {
+
+	var collection = db.collection('users');
+
+	collection.insertOne({id_client:(req.body.codclient),
+		name:(req.body.name),
+		surname:(req.body.surname),
+		phone:(req.body.phone),
+		email:(req.body.email),
+		sity:(req.body.sity),
+		status:(req.body.status),
+		auto:(req.body.auto),
+		'time-start':(req.body.timestart),
+		'time-end':(req.body.timeend),
+		flag:(req.body.flag) });
+	
+	var nameuser = '';
+	var phoneuser ='';
+				res.render('verifi', {nameuser:nameuser, phoneuser:phoneuser});
+
+});
 
 //disconect db	
 });
