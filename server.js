@@ -4,12 +4,14 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-
+const xlsx = require('node-xlsx');
 app.use(express.static('public'));// папка з статичними елементами (картінки)
 app.set('views',(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 var MongoDriver = require('mongodb');
+
 var MongoClient = MongoDriver.MongoClient, assert = require('assert');
 var url = 'mongodb://localhost:27017/auto_turn';
 var ObjectId = MongoDriver.ObjectId;
@@ -17,10 +19,11 @@ var formidable = require("formidable");
 var fs = require("fs"),
     sys = require("sys");
 
-var count1 = 0; 
+var count1 = ''; 
 var filenamedb =0; 
 var printcount = 1;
 var printname = 0;
+var importdir ='';
 
 
 
@@ -121,7 +124,7 @@ if (!err) {
 if(req.body.reset=='true'){
 
  		
-		count1 = 0;
+		count1 = '';
 		collection.updateMany({},{$set:{count:[0]}});
 		collection.updateMany({} , { $pop: { count: -1 } });
 		collection.updateMany({},{$set:{client:[0]}});
@@ -178,6 +181,7 @@ res.render('addcar', {filenamedb:filenamedb});
 
 });
 
+// загрузка зображення для автомобілів 
 app.post('/upload', function(req, res){
 var form = new formidable.IncomingForm();
 form.parse(req);
@@ -196,7 +200,27 @@ res.render('addcar',{filenamedb:filenamedb});
 });
 
 
+// загрузка файла xl для імпорту в базу 
+app.post('/importxl', function(req, res){
+var form = new formidable.IncomingForm();
+form.parse(req);
 
+
+form.on('fileBegin', function (name, file){
+        file.path = __dirname + '\\public\\import\\' + file.name;
+        importdir = __dirname + '\\public\\import\\' + file.name;
+      
+    });
+
+ form.on('file', function (name, file){
+        console.log('Uploaded ' + file.name);
+filenamedb = 'import/'+file.name; 
+res.render('import',{});
+    });
+});
+
+
+// додання автомобіля 
 app.post('/addcar', function(req, res){
 
 console.log(req.body.brand);
@@ -227,7 +251,7 @@ var insertDocuments = function(db, callback) {
 res.render('addcar', {filenamedb:filenamedb});
 });
 
-
+/*
 
 app.get('/print',function(req, res){
 
@@ -241,7 +265,7 @@ app.get('/print',function(req, res){
     	});
 		
 });
-
+*/
 // starting exe file 
 //app.post('/startexe', function(req, res){
 //	var startexe = require('child_process').exec('start cmd.exe ');
@@ -250,7 +274,7 @@ app.get('/print',function(req, res){
 //при натисненні кнопки import перейти на таку сторінку 
 app.post('/importrender', function(req, res) {
 
-			res.render('verifi', {});
+			res.render('import', {});
 	
 	});
 //при натисненні кнопки verify перейти на таку сторінку 
@@ -321,6 +345,29 @@ app.post('/adduser', function(req, res) {
 				res.render('verifi', {nameuser:nameuser, phoneuser:phoneuser});
 
 });
+
+
+app.post('/parcexl', function(req, res) {
+
+
+
+console.log(importdir);
+
+// Parse a buffer 
+const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(`${__dirname}/test.xlsx`));
+// Parse a file 
+const workSheetsFromFile = xlsx.parse(`${__dirname}/test.xlsx`);
+
+console.log(workSheetsFromFile[0]);
+res.render('import', {});
+
+
+});
+
+
+
+
+
 
 //disconect db	
 });
