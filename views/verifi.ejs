@@ -21,13 +21,13 @@
 
 		<div id="coddb" class="verify">
 			<form action="/codverif" method="post">
-				Код:	<input type="text" placeholder="cod" name = "codk" pattern="[0-9]{8}"><br/>
+				Код:	<input type="text" placeholder="cod" name = "codk" pattern="[0-9]{8}"><br/><br/>
 				<button type="submit">Ввести код</button>
 			</form>
 		</div>
 		<div id="namedb" class="verify">
 			<form action="/nameverif" method="post"> 
-				Фамилия:	<input type="text" placeholder="surname" name = "surname"><br/>
+				Фамилия:	<input type="text" placeholder="surname" name = "surname"><br/><br/>
 				<button type="submit" >По фамилии</button>
 			</form>
 		</div>
@@ -44,7 +44,7 @@
 		Имя: <%=results[i].name%><br/>
 		Фамилия: <%=results[i].surname%><br/>
 		Телефон: <%=results[i].phone%><br/>
-		Начало тестрайва: <%=results[i].timestart%>
+		Начало тестрайва: <%=timetestdrive%>
 		 <form action="/changflag" method="post">
 		 	<button type="submit" name="idclient" value=<%=results[i]._id%>>Отметить прибытие</button>
 		 	<input type="hidden" name='surname' value=<%=results[i].surname%>>
@@ -56,7 +56,7 @@
 		Имя: <%=results[i].name%><br/>
 		Фамилия: <%=results[i].surname%><br/>
 		Телефон: <%=results[i].phone%><br/>
-		Начало тестрайва: <%=results[i].timestart%><br/>
+		Начало тестрайва: <%=timetestdrive%><br/>
 
 		<%=results[i].flag%>
 

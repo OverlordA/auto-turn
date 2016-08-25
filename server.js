@@ -356,10 +356,18 @@ if(err){
 
 	console.log(err);
 	var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
-	res.render('verifi', {results:results});
+	var timetestdrive = ''; 
+	res.render('verifi', {results:results,timetestdrive:timetestdrive});
 		
 }else{
-	res.render('verifi', {results:results});
+var dates = new Date((results[0].timestart - (10800*1000)));
+	var minutes = dates.getMinutes(); minutes = minutes > 9 ? minutes : '0' + minutes; 
+	var hours = dates.getHours(); hours = hours > 9 ? hours : '0' + hours; 
+	var month = dates.getMonth(); month = month > 9 ? month : '0' + month;
+	var day = dates.getDay(); day = day > 9 ? day : '0' + day;
+
+	timetestdrive = dates.getFullYear() +"-"+ month +"-"+ day+" "+hours +":"+ minutes;
+	res.render('verifi', {results:results,timetestdrive:timetestdrive});
 }
 	
     
@@ -382,10 +390,18 @@ app.post('/codverif', function(req, res) {
 if(err){
 	console.log(err);
 var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
-				res.render('verifi', {results:results});
+var timetestdrive = ''; 
+				res.render('verifi', {results:results,timetestdrive:timetestdrive});
 		
 }else{
-res.render('verifi', {results:results});
+	var dates = new Date((results[0].timestart - (10800*1000)));
+	var minutes = dates.getMinutes(); minutes = minutes > 9 ? minutes : '0' + minutes; 
+	var hours = dates.getHours(); hours = hours > 9 ? hours : '0' + hours; 
+	var month = dates.getMonth(); month = month > 9 ? month : '0' + month;
+	var day = dates.getDay(); day = day > 9 ? day : '0' + day;
+
+	timetestdrive = dates.getFullYear() +"-"+ month +"-"+ day+" "+hours +":"+ minutes;
+res.render('verifi', {results:results,timetestdrive:timetestdrive});
 
 
 }
@@ -411,10 +427,21 @@ function capitalizeFirstLetter(string) {
 if(err){
 	console.log(err);
 var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
-				res.render('verifi', {results:results});
+var timetestdrive = ''; 
+				res.render('verifi', {results:results,timetestdrive:timetestdrive});
 		
 }else{
-res.render('verifi', {results:results});
+	var dates = new Date((results[0].timestart - (10800*1000)));
+	var minutes = dates.getMinutes(); minutes = minutes > 9 ? minutes : '0' + minutes; 
+	var hours = dates.getHours(); hours = hours > 9 ? hours : '0' + hours; 
+	var month = dates.getMonth(); month = month > 9 ? month : '0' + month;
+	var day = dates.getDay(); day = day > 9 ? day : '0' + day;
+
+	timetestdrive = dates.getFullYear() +"-"+ month +"-"+ day+" "+hours +":"+ minutes;
+
+
+
+res.render('verifi', {results:results, timetestdrive:timetestdrive});
 
 
 }

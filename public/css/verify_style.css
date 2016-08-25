@@ -27,10 +27,8 @@ border-color:#647377;
 
 }
 .verify {
-	border-style:solid;
-	border-color:#647377;
 	display: inline-block;
-	padding:10px 2px;
-	margin:0;
+	padding:10px;
+	margin:10px;
 
 }
