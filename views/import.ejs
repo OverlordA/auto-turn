@@ -3,6 +3,7 @@
 <!-- vim: set ts=2: -->
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/import_style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>xl-to-json</title>
 
@@ -12,15 +13,12 @@
 
 <form action="/importxl" method="POST" enctype="multipart/form-data">
 				<p><input type="file" name="xlfile" multiple="multiple" /></p>
-				<button type="submit" value="start import">start import</button><br />
+				<button type="submit" value="start import">Импортировать</button><br />
 </form>
 
-<form action="/parcexl" method="POST">
-	<button type='submit'>parce xl</button>
-	</form>
 
 <form action="/" method="GET">
-	<button type='submit'>Повернутись</button>
+	<button type='submit'>Вернуться</button>
 	</form>
 </body>
 </html>

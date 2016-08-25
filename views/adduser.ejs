@@ -10,28 +10,35 @@
 	<body>
 		<div id="regnew" class="verify">
 			<form action="/adduser" method="post">
-				Імя:	<input required type="text" placeholder="name" name = "name"><br/>
-				Прізвище:	<input repuired type="text" placeholder="surname" name = "surname"><br/>
-				Мобільний телефон:	<input type="text" placeholder="phone number" name = "phone"><br/>
-				Email:	<input type="text" placeholder="email" name = "email"><br/>
+				Имя: <input required type="text" placeholder="name" name = "name"><br/>
+				Фамилия:	<input repuired type="text" placeholder="surname" name = "surname"><br/>
+				Мобильный телефон:	<input type="text" placeholder="phone number" name = "phone"><br/>
+				Email:	<input type="email" placeholder="email" name = "email"><br/>
 				Статус: <select name="status" repuired>
 					<option value="Тест-драйв" selected>Тест-драйв</option>
 					<option value="Гость">Гость</option>
 				</select><br/>
-				Місто:	<input repuired type="text" name = "sity"><br/>
-				Бажане авто:<select name="flag" repuired>
+				Город:<select name="sity" repuired>
+					<option value="Одесса" selected>Одесса</option>
+					<option value="Днепр" >Днепр</option>
+					<option value="Львов" >Львов</option>
+					<option value="Харьков">Харьков</option>
+					<option value="Киев">Киев</option>
+					</select><br/>
+				Желаемое авто:<select name="auto" repuired>
 					<option value="" selected></option>
 					<option value="Mazda 2">Mazda 2</option>
 					<option value="Mazda 3" >Mazda 3</option>
 					<option value="Mazda 6" >Mazda 6</option>
 					<option value="Mazda CX-5">Mazda CX-5</option>
 				</select><br/>	
-				Код клиента: <input type="text" placeholder="cod client" name = "codclient"><br/>
+			<!--	Код клиента: <input type="text" placeholder="cod client" name = "codclient"><br/> !-->
+				Количество сопровождающих: <input type="text"  name = "numberbodies"><br/>
 				<hr/>
-				<button type="submit">Зареєструвати</button>
+				<button type="submit">Зарегистрировать</button>
 			</form>
 			<form action="/verifirender" method="Post">
-			<button type="submit">Повернутись</button>
+			<button type="submit">Назад</button>
 			</form>
 		</div>
 

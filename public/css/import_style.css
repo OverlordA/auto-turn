@@ -7,7 +7,7 @@
 }
 button {
 	margin:3px;
-width:120px;
+width:100px;
 height:40px;
 border-style:solid;
 border-color:#647377;
@@ -26,7 +26,7 @@ background-color:#B1BAC6;
 border-color:#647377;
 
 }
-.verify {
+.verify{
 	border-style:solid;
 	border-color:#647377;
 	display: inline-block;

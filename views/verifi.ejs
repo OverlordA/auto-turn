@@ -4,7 +4,7 @@
 			<link rel="stylesheet" type="text/css" href="css/verify_style.css">
 		<meta charset="UTF-8"/>
 		<title>
-			Перевірка клієнта
+			Поиск клиента
 		</title>
 	</head>
 	<body>
@@ -15,7 +15,7 @@
 		!-->
 		<div di="back" class="verify">
 			<form action="/" method="get">
-				<button type="submit">Повернутись</button>
+				<button type="submit">Назад</button>
 			</form>
 		</div>
 
@@ -27,29 +27,41 @@
 		</div>
 		<div id="namedb" class="verify">
 			<form action="/nameverif" method="post"> 
-				Прізвище:	<input type="text" placeholder="surname" name = "surname" pattern="^[A-ZА-Я][A-Za-zА-Яа-яЁё]{1,20}$"><br/>
-				<button type="submit" >По прізвищу</button>
+				Фамилия:	<input type="text" placeholder="surname" name = "surname"><br/>
+				<button type="submit" >По фамилии</button>
 			</form>
 		</div>
 		<div id="regnew" class="verify">
 			<form action="/adduserrender" method="post">
-				<button type="submit">Зареєструвати нового</button>
+				<button type="submit">Зарегистрировать нового</button>
 			</form>
 		</div>
 
 	<div id="resultat">
 		<% for(var i=0; i<results.length; i++) {%>
 <%if(results[i].flag !='Прибув'){%>
-		<%=results[i].name%><br/>
-		<%=results[i].surname%><br/>
-		<%=results[i].phone%> <%if(results[i].name !=''){%>
+	 <%if(results[i].name !=''){%>
+		Имя: <%=results[i].name%><br/>
+		Фамилия: <%=results[i].surname%><br/>
+		Телефон: <%=results[i].phone%><br/>
+		Начало тестрайва: <%=results[i].timestart%>
 		 <form action="/changflag" method="post">
-		 	<button type="submit" name="idclient" value=<%=results[i].id_client%>>Відмітити прибуття</button>
+		 	<button type="submit" name="idclient" value=<%=results[i]._id%>>Отметить прибытие</button>
 		 	<input type="hidden" name='surname' value=<%=results[i].surname%>>
 		 </form>	
 
 		 	<% } %><br/><br/>
-<% } %>
+<%}else{%>
+	 <%if(results[i].name !=''){%>
+		Имя: <%=results[i].name%><br/>
+		Фамилия: <%=results[i].surname%><br/>
+		Телефон: <%=results[i].phone%><br/>
+		Начало тестрайва: <%=results[i].timestart%><br/>
+
+		<%=results[i].flag%>
+
+		 	<% } %><br/><br/>
+ <%}%>
 
 	<% } %>
 	</div>

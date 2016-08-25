@@ -45,9 +45,10 @@ padding-left:10px;
 margin-left:10px;
 }
 
-.resetbut{
+.topbutton{
  display: inline-block;
-	margin-left:80%;
+	padding:10px 2px;
+	margin:0;
 }
 
 

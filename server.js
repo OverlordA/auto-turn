@@ -203,20 +203,75 @@ res.render('addcar',{filenamedb:filenamedb});
 // загрузка файла xl для імпорту в базу 
 app.post('/importxl', function(req, res){
 var form = new formidable.IncomingForm();
-form.parse(req);
-
+form.parse(req); 
 
 form.on('fileBegin', function (name, file){
         file.path = __dirname + '\\public\\import\\' + file.name;
-        importdir = __dirname + '\\public\\import\\' + file.name;
+        
       
     });
 
- form.on('file', function (name, file){
+form.on('file', function (name, file){
         console.log('Uploaded ' + file.name);
-filenamedb = 'import/'+file.name; 
-res.render('import',{});
+filenamedb = 'import/'+file.name;
+importdir = __dirname+'/public/import/'+file.name;
+console.log(importdir);
+importFile(importdir);
     });
+
+var collection = db.collection('users');
+
+
+var flag = "Не прибув";
+var bodyesnum = "";
+//importdir = req.xlfile;
+console.log(importdir);
+
+        
+ function importFile(path) {
+ 	// копіюємо в буфер файл що розпізнаємо  
+var workSheetsFromBuffer = xlsx.parse(fs.readFileSync(path));  // поправити шлях шоб не був корінь а папка імпорт в пабліку
+
+// розпізнає файл і заносить його в вложений масив обєктів де кожен обєкт це лист
+var workSheetsFromFile = xlsx.parse(path);
+//var Jan02_1970 = new Date(year, month, date, hours, minutes);
+//console.log(Jan02_1970);
+//console.log(workSheetsFromFile[0].data[2][7]);
+//console.log(new Date((workSheetsFromFile[0].data[2][7] - (25567 + 2))*86400*1000 - (10800*1000)));
+//var d = new Date((workSheetsFromFile[0].data[2][7] - (25567 + 2))*86400*1000);
+//d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+for(var i = 1; i < workSheetsFromFile[0].data.length; i++){	
+		var ds = new Date((workSheetsFromFile[0].data[i][7] - (25567 + 2))*86400*1000);
+		var de = new Date((workSheetsFromFile[0].data[i][8] - (25567 + 2))*86400*1000);
+		//d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
+	collection.insertOne({id_client:(workSheetsFromFile[0].data[i][9]),
+		name:(capitalizeFirstLetter(workSheetsFromFile[0].data[i][0])),
+		surname:(capitalizeFirstLetter(workSheetsFromFile[0].data[i][1])),
+		phone:(workSheetsFromFile[0].data[i][2]),
+		email:(workSheetsFromFile[0].data[i][3]),
+		sity:(workSheetsFromFile[0].data[i][4]),
+		status:(workSheetsFromFile[0].data[i][5]),
+		auto:(workSheetsFromFile[0].data[i][6]),
+		timestart:(ds),
+		timeend:(de),
+		numberbodies:(bodyesnum),
+		flag:(flag)
+
+	});
+}
+ }   
+   
+
+
+res.render('import', {});
+
+
+
 });
 
 
@@ -292,7 +347,7 @@ app.post('/verifirender', function(req, res) {
 app.post('/changflag', function(req, res) {
 var collection = db.collection('users');
 
-collection.updateOne({id_client :(req.body.idclient)  } , { $set: { flag : 'Прибув' }});
+collection.updateOne({_id :ObjectId(req.body.idclient)} , { $set: { flag : 'Прибув' }});
 
 collection.find({surname:req.body.surname}).toArray(function(err, results) { 
 	
@@ -341,14 +396,18 @@ res.render('verifi', {results:results});
 		
 	});
 
+
 // шукати клієнта з бази по прізвищу 
 app.post('/nameverif', function(req, res) {
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 	var collection = db.collection('users');
 
   //console.log(req.body.surname);
 
-  collection.find({surname:req.body.surname}).toArray(function(err, results) { 
+  collection.find({surname:capitalizeFirstLetter(req.body.surname)}).toArray(function(err, results) { 
 if(err){
 	console.log(err);
 var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
@@ -367,43 +426,35 @@ res.render('verifi', {results:results});
 	});
 //додавання користувача в базу 
 app.post('/adduser', function(req, res) {
-
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 	var collection = db.collection('users');
-var status = 'Прибув';
-	collection.insertOne({id_client:(req.body.codclient),
-		name:(req.body.name),
-		surname:(req.body.surname),
+var flag = 'Прибув';
+var start ='';
+var end = '';
+var codclient = '';
+	collection.insertOne({id_client:(codclient),
+		name:(capitalizeFirstLetter(req.body.name)),
+		surname:(capitalizeFirstLetter(req.body.surname)),
 		phone:(req.body.phone),
 		email:(req.body.email),
 		sity:(req.body.sity),
-		status:(status),
+		status:(req.body.status),
 		auto:(req.body.auto),
-		flag:(req.body.flag) });
+		timestart:(start),
+		timeend:(end),
+		numberbodyes:(req.body.numberbodies),
+		flag:(flag) });
 	
-	var nameuser = '';
-	var phoneuser ='';
-				res.render('verifi', {nameuser:nameuser, phoneuser:phoneuser});
+
+			
+				res.render('adduser', {});
 
 });
 
 
-app.post('/parcexl', function(req, res) {
 
-
-
-console.log(importdir);
-
-// копіюємо в буфер файл що розпізнаємо 
-const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(`${__dirname}/test.xlsx`));  // поправити шлях шоб не був корінь а папка імпорт в пабліку
-
-// розпізнає файл і заносить його в вложений масив обєктів де кожен обєкт це лист
-const workSheetsFromFile = xlsx.parse(`${__dirname}/test.xlsx`);
-
-console.log(workSheetsFromFile[0]);
-res.render('import', {});
-
-
-});
 
 
 
