@@ -20,9 +20,9 @@ var fs = require("fs"),
     sys = require("sys");
 
 var count1 = ''; 
-var filenamedb =0; 
-var printcount = 1;
-var printname = 0;
+var filenamedb =''; 
+var printcount = '';
+var printname = '';
 var importdir ='';
 
 
@@ -116,8 +116,8 @@ if (!err) {
 
 	app.post("/reset", function(req, res){
 		var collection = db.collection('auto');
-		printcount = 1;
-		printname = 0; 
+		printcount = '';
+		printname = ''; 
 
 		
 
@@ -279,9 +279,41 @@ app.post('/importrender', function(req, res) {
 	});
 //при натисненні кнопки verify перейти на таку сторінку 
 app.post('/verifirender', function(req, res) {
-	var nameuser = '';
-	var phoneuser ='';
-				res.render('verifi', {nameuser:nameuser, phoneuser:phoneuser});
+	//var nameuser = '';
+	//var phoneuser ='';
+	var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
+	
+
+				res.render('verifi', {results:results});
+	
+    
+	});
+//Змінити флаг прийшов чи ні 
+app.post('/changflag', function(req, res) {
+var collection = db.collection('users');
+
+collection.updateOne({id_client :(req.body.idclient)  } , { $set: { flag : 'Прибув' }});
+
+collection.find({surname:req.body.surname}).toArray(function(err, results) { 
+	
+
+if(err){
+
+	console.log(err);
+	var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
+	res.render('verifi', {results:results});
+		
+}else{
+	res.render('verifi', {results:results});
+}
+	
+    
+	});
+
+});
+//сторінка реєстрації нового клієнта 
+app.post('/adduserrender', function(req, res) {
+				res.render('adduser', {});
 	
     
 	});
@@ -291,14 +323,18 @@ app.post('/codverif', function(req, res) {
 	var collection = db.collection('users');
 
   //console.log(req.body.codk);
+  collection.find({id_client:req.body.codk}).toArray(function(err, results) { 
+if(err){
+	console.log(err);
+var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
+				res.render('verifi', {results:results});
+		
+}else{
+res.render('verifi', {results:results});
 
-  collection.find({id_client:req.body.codk}).toArray(function(err, results) {
-   		 // console.log(results[0].name);
-   		//  console.log(results[0].phone);
-   		var phoneuser = results[0].phone; 
-   		var nameuser = results[0].name; 
-   		
-			res.render('verifi', {phoneuser:phoneuser, nameuser:nameuser});
+
+}
+			
 	
     	});
 			
@@ -312,12 +348,18 @@ app.post('/nameverif', function(req, res) {
 
   //console.log(req.body.surname);
 
-  collection.find({surname:req.body.surname}).toArray(function(err, results) {
-   		 // console.log(results[0].name);
-   		 // console.log(results[0].phone);
-	var phoneuser = results[0].phone; 
-   		var nameuser = results[0].name; 
-			res.render('verifi', {phoneuser:phoneuser, nameuser:nameuser});
+  collection.find({surname:req.body.surname}).toArray(function(err, results) { 
+if(err){
+	console.log(err);
+var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
+				res.render('verifi', {results:results});
+		
+}else{
+res.render('verifi', {results:results});
+
+
+}
+			
 	
     	});
 			
@@ -327,17 +369,15 @@ app.post('/nameverif', function(req, res) {
 app.post('/adduser', function(req, res) {
 
 	var collection = db.collection('users');
-
+var status = 'Прибув';
 	collection.insertOne({id_client:(req.body.codclient),
 		name:(req.body.name),
 		surname:(req.body.surname),
 		phone:(req.body.phone),
 		email:(req.body.email),
 		sity:(req.body.sity),
-		status:(req.body.status),
+		status:(status),
 		auto:(req.body.auto),
-		'time-start':(req.body.timestart),
-		'time-end':(req.body.timeend),
 		flag:(req.body.flag) });
 	
 	var nameuser = '';
@@ -353,9 +393,10 @@ app.post('/parcexl', function(req, res) {
 
 console.log(importdir);
 
-// Parse a buffer 
-const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(`${__dirname}/test.xlsx`));
-// Parse a file 
+// копіюємо в буфер файл що розпізнаємо 
+const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(`${__dirname}/test.xlsx`));  // поправити шлях шоб не був корінь а папка імпорт в пабліку
+
+// розпізнає файл і заносить його в вложений масив обєктів де кожен обєкт це лист
 const workSheetsFromFile = xlsx.parse(`${__dirname}/test.xlsx`);
 
 console.log(workSheetsFromFile[0]);

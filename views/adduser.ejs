@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<link rel="stylesheet" type="text/css" href="css/verify_style.css">
+		<meta charset="UTF-8"/>
+		<title>
+			Додати клієнта
+		</title>
+	</head>
+	<body>
+		<div id="regnew" class="verify">
+			<form action="/adduser" method="post">
+				Імя:	<input required type="text" placeholder="name" name = "name"><br/>
+				Прізвище:	<input repuired type="text" placeholder="surname" name = "surname"><br/>
+				Мобільний телефон:	<input type="text" placeholder="phone number" name = "phone"><br/>
+				Email:	<input type="text" placeholder="email" name = "email"><br/>
+				Статус: <select name="status" repuired>
+					<option value="Тест-драйв" selected>Тест-драйв</option>
+					<option value="Гость">Гость</option>
+				</select><br/>
+				Місто:	<input repuired type="text" name = "sity"><br/>
+				Бажане авто:<select name="flag" repuired>
+					<option value="" selected></option>
+					<option value="Mazda 2">Mazda 2</option>
+					<option value="Mazda 3" >Mazda 3</option>
+					<option value="Mazda 6" >Mazda 6</option>
+					<option value="Mazda CX-5">Mazda CX-5</option>
+				</select><br/>	
+				Код клиента: <input type="text" placeholder="cod client" name = "codclient"><br/>
+				<hr/>
+				<button type="submit">Зареєструвати</button>
+			</form>
+			<form action="/verifirender" method="Post">
+			<button type="submit">Повернутись</button>
+			</form>
+		</div>
+
+
+	
+	</body>
+</html>

@@ -8,57 +8,50 @@
 		</title>
 	</head>
 	<body>
-		
+		<!-- зчитування qr кода потом реалізую
 		<div di="qr" class="verify">
 			<button type="submit">Зчитати QR</button>
 		</div>
+		!-->
+		<div di="back" class="verify">
+			<form action="/" method="get">
+				<button type="submit">Повернутись</button>
+			</form>
+		</div>
+
 		<div id="coddb" class="verify">
 			<form action="/codverif" method="post">
-				Код:	<input type="text" placeholder="cod" name = "codk"><br/>
+				Код:	<input type="text" placeholder="cod" name = "codk" pattern="[0-9]{8}"><br/>
 				<button type="submit">Ввести код</button>
 			</form>
 		</div>
 		<div id="namedb" class="verify">
 			<form action="/nameverif" method="post"> 
-				Прізвище:	<input type="text" placeholder="surname" name = "surname"><br/>
+				Прізвище:	<input type="text" placeholder="surname" name = "surname" pattern="^[A-ZА-Я][A-Za-zА-Яа-яЁё]{1,20}$"><br/>
 				<button type="submit" >По прізвищу</button>
 			</form>
 		</div>
 		<div id="regnew" class="verify">
-			<form action="/adduser" method="post">
-				Імя:	<input required type="text" placeholder="name" name = "name"><br/>
-				Прізвище:	<input repuired type="text" placeholder="surname" name = "surname"><br/>
-				Мобільний телефон:	<input type="text" placeholder="phone number" name = "phone"><br/>
-				Email:	<input type="text" placeholder="email" name = "email"><br/>
-				Статус: <select name="status" repuired>
-					<option value="Тест-драйв" selected>Тест-драйв</option>
-					<option value="Гость">Гость</option>
-				</select><br/>
-				Місто:	<input repuired type="text" name = "sity"><br/>
-				Бажане авто:<select name="flag" repuired>
-					<option value="" selected></option>
-					<option value="Mazda 2">Mazda 2</option>
-					<option value="Mazda 3" >Mazda 3</option>
-					<option value="Mazda 6" >Mazda 6</option>
-					<option value="Mazda CX-5">Mazda CX-5</option>
-				</select><br/>	
-				Время начала:	<input type="text" placeholder="time start" name = "timestart"><br/>
-				Время конца: <input type="text" placeholder="time end" name = "timeend"><br/>
-				Код клиента: <input type="text" placeholder="cod client" name = "codclient"><br/>
-				Присутність:<select name="flag" repuired>
-					<option value="Прибув" selected>Прибув</option>
-					<option value="не прибув">Не прибув</option>
-				</select><br/>
-				<hr/>
+			<form action="/adduserrender" method="post">
 				<button type="submit">Зареєструвати нового</button>
 			</form>
 		</div>
 
 	<div id="resultat">
-		<%=nameuser%><br/>
-		<%=phoneuser%>
+		<% for(var i=0; i<results.length; i++) {%>
+<%if(results[i].flag !='Прибув'){%>
+		<%=results[i].name%><br/>
+		<%=results[i].surname%><br/>
+		<%=results[i].phone%> <%if(results[i].name !=''){%>
+		 <form action="/changflag" method="post">
+		 	<button type="submit" name="idclient" value=<%=results[i].id_client%>>Відмітити прибуття</button>
+		 	<input type="hidden" name='surname' value=<%=results[i].surname%>>
+		 </form>	
 
+		 	<% } %><br/><br/>
+<% } %>
 
+	<% } %>
 	</div>
 	
 	</body>
