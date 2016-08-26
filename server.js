@@ -245,10 +245,8 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-for(var i = 1; i < workSheetsFromFile[0].data.length; i++){	
-		var ds = new Date((workSheetsFromFile[0].data[i][7] - (25567 + 2))*86400*1000);
-		var de = new Date((workSheetsFromFile[0].data[i][8] - (25567 + 2))*86400*1000);
-		//d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
+for(var i = 1; i < workSheetsFromFile[0].data.length; i++){
+
 	collection.insertOne({id_client:(workSheetsFromFile[0].data[i][9]),
 		name:(capitalizeFirstLetter(workSheetsFromFile[0].data[i][0])),
 		surname:(capitalizeFirstLetter(workSheetsFromFile[0].data[i][1])),
@@ -257,11 +255,10 @@ for(var i = 1; i < workSheetsFromFile[0].data.length; i++){
 		sity:(workSheetsFromFile[0].data[i][4]),
 		status:(workSheetsFromFile[0].data[i][5]),
 		auto:(workSheetsFromFile[0].data[i][6]),
-		timestart:(ds),
-		timeend:(de),
+		timestart:(new Date((workSheetsFromFile[0].data[i][7] - (25567 + 2))*86400*1000)),
+		timeend:(new Date((workSheetsFromFile[0].data[i][8] - (25567 + 2))*86400*1000)),
 		numberbodies:(bodyesnum),
 		flag:(flag)
-
 	});
 }
  }   
@@ -360,13 +357,18 @@ if(err){
 	res.render('verifi', {results:results,timetestdrive:timetestdrive});
 		
 }else{
-var dates = new Date((results[0].timestart - (10800*1000)));
+if(results[0].timestart ==''){
+		timetestdrive = '';
+	}else{
+	var dates = new Date((results[0].timestart - (10800*1000)));
 	var minutes = dates.getMinutes(); minutes = minutes > 9 ? minutes : '0' + minutes; 
 	var hours = dates.getHours(); hours = hours > 9 ? hours : '0' + hours; 
 	var month = dates.getMonth(); month = month > 9 ? month : '0' + month;
 	var day = dates.getDay(); day = day > 9 ? day : '0' + day;
 
 	timetestdrive = dates.getFullYear() +"-"+ month +"-"+ day+" "+hours +":"+ minutes;
+}
+
 	res.render('verifi', {results:results,timetestdrive:timetestdrive});
 }
 	
@@ -386,6 +388,7 @@ app.post('/codverif', function(req, res) {
 	var collection = db.collection('users');
 
   //console.log(req.body.codk);
+  if(req.body.codk != ''){
   collection.find({id_client:req.body.codk}).toArray(function(err, results) { 
 if(err){
 	console.log(err);
@@ -394,13 +397,19 @@ var timetestdrive = '';
 				res.render('verifi', {results:results,timetestdrive:timetestdrive});
 		
 }else{
-	var dates = new Date((results[0].timestart - (10800*1000)));
+	if(results == ''){
+		timetestdrive = '';
+	}else{
+	var dates = new Date((results[0].timestart)-10800*1000);
 	var minutes = dates.getMinutes(); minutes = minutes > 9 ? minutes : '0' + minutes; 
 	var hours = dates.getHours(); hours = hours > 9 ? hours : '0' + hours; 
-	var month = dates.getMonth(); month = month > 9 ? month : '0' + month;
-	var day = dates.getDay(); day = day > 9 ? day : '0' + day;
+	var month = dates.getMonth(); month++;
+	 month = month > 9 ? month : '0' + month;
+	var day = dates.getDate(); day = day > 9 ? day : '0' + day;
 
 	timetestdrive = dates.getFullYear() +"-"+ month +"-"+ day+" "+hours +":"+ minutes;
+}
+
 res.render('verifi', {results:results,timetestdrive:timetestdrive});
 
 
@@ -408,7 +417,12 @@ res.render('verifi', {results:results,timetestdrive:timetestdrive});
 			
 	
     	});
-			
+		}else{
+var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
+var timetestdrive = ''; 
+				res.render('verifi', {results:results,timetestdrive:timetestdrive});
+
+		}	
 		
 	});
 
@@ -422,7 +436,7 @@ function capitalizeFirstLetter(string) {
 	var collection = db.collection('users');
 
   //console.log(req.body.surname);
-
+if(req.body.surname != ''){
   collection.find({surname:capitalizeFirstLetter(req.body.surname)}).toArray(function(err, results) { 
 if(err){
 	console.log(err);
@@ -431,14 +445,19 @@ var timetestdrive = '';
 				res.render('verifi', {results:results,timetestdrive:timetestdrive});
 		
 }else{
-	var dates = new Date((results[0].timestart - (10800*1000)));
+	if(results == ''){
+		timetestdrive = '';
+	}else{
+	var dates = new Date((results[0].timestart)-10800*1000);
 	var minutes = dates.getMinutes(); minutes = minutes > 9 ? minutes : '0' + minutes; 
 	var hours = dates.getHours(); hours = hours > 9 ? hours : '0' + hours; 
-	var month = dates.getMonth(); month = month > 9 ? month : '0' + month;
-	var day = dates.getDay(); day = day > 9 ? day : '0' + day;
+	var month = dates.getMonth(); month++;
+	 month = month > 9 ? month : '0' + month;
+	var day = dates.getDate(); day = day > 9 ? day : '0' + day;
 
 	timetestdrive = dates.getFullYear() +"-"+ month +"-"+ day+" "+hours +":"+ minutes;
-
+	
+}
 
 
 res.render('verifi', {results:results, timetestdrive:timetestdrive});
@@ -448,9 +467,15 @@ res.render('verifi', {results:results, timetestdrive:timetestdrive});
 			
 	
     	});
-			
+		}else{
+
+var results=[{name:'',phone:''},{name:'',phone:''},{name:'',phone:''},{name:'',phone:''}] ;
+var timetestdrive = ''; 
+		res.render('verifi', {results:results, timetestdrive:timetestdrive});	
+		}	
 		
 	});
+
 //додавання користувача в базу 
 app.post('/adduser', function(req, res) {
 function capitalizeFirstLetter(string) {
@@ -458,10 +483,10 @@ function capitalizeFirstLetter(string) {
 }
 	var collection = db.collection('users');
 var flag = 'Прибув';
-var start ='';
-var end = '';
-var codclient = '';
-	collection.insertOne({id_client:(codclient),
+var start = null;
+var end = null;
+//var codclient = null;
+	collection.insertOne({
 		name:(capitalizeFirstLetter(req.body.name)),
 		surname:(capitalizeFirstLetter(req.body.surname)),
 		phone:(req.body.phone),

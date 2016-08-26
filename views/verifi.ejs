@@ -56,7 +56,9 @@
 		Имя: <%=results[i].name%><br/>
 		Фамилия: <%=results[i].surname%><br/>
 		Телефон: <%=results[i].phone%><br/>
-		Начало тестрайва: <%=timetestdrive%><br/>
+		Начало тестрайва:<%if(results[i].flag =='Прибув'){%><%}else{%>
+		<%=timetestdrive%>
+		<%}%><br/>
 
 		<%=results[i].flag%>
 
