@@ -216,13 +216,15 @@ form.on('file', function (name, file){
 filenamedb = 'import/'+file.name;
 importdir = __dirname+'/public/import/'+file.name;
 console.log(importdir);
+
+console.log("importing")
 importFile(importdir);
     });
 
 var collection = db.collection('users');
 
 
-var flag = "Не прибув";
+var flag = "Не прибыл";
 var bodyesnum = "";
 //importdir = req.xlfile;
 console.log(importdir);
@@ -344,7 +346,7 @@ app.post('/verifirender', function(req, res) {
 app.post('/changflag', function(req, res) {
 var collection = db.collection('users');
 
-collection.updateOne({_id :ObjectId(req.body.idclient)} , { $set: { flag : 'Прибув' }});
+collection.updateOne({_id :ObjectId(req.body.idclient)} , { $set: { flag : 'Прибыл' }});
 
 collection.find({surname:req.body.surname}).toArray(function(err, results) { 
 	
@@ -482,7 +484,7 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 	var collection = db.collection('users');
-var flag = 'Прибув';
+var flag = 'Прибыл';
 var start = null;
 var end = null;
 //var codclient = null;

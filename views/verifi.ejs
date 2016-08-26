@@ -39,7 +39,7 @@
 
 	<div id="resultat">
 		<% for(var i=0; i<results.length; i++) {%>
-<%if(results[i].flag !='Прибув'){%>
+<%if(results[i].flag !='Прибыл'){%>
 	 <%if(results[i].name !=''){%>
 		Имя: <%=results[i].name%><br/>
 		Фамилия: <%=results[i].surname%><br/>
@@ -56,7 +56,7 @@
 		Имя: <%=results[i].name%><br/>
 		Фамилия: <%=results[i].surname%><br/>
 		Телефон: <%=results[i].phone%><br/>
-		Начало тестрайва:<%if(results[i].flag =='Прибув'){%><%}else{%>
+		Начало тестрайва:<%if(results[i].flag =='Прибыл'){%><%}else{%>
 		<%=timetestdrive%>
 		<%}%><br/>
 
